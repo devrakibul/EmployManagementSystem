@@ -80,7 +80,7 @@ Project Create
                                                 <div class="col-10">
                                                     <div data-repeater-list="inner-list">
                                                         @foreach ($projectImages as $projectImage)
-                                                        <input type="hidden" name="id" value="{{ $projectImage->id }}">
+                                                        <input type="hidden" name="image_id" value="{{ $projectImage->id }}">
                                                             <div data-repeater-item class="row mb-2 remove_image">
                                                                 <div class="col-8">
                                                                     <input type="file" name="image[]"
