@@ -14,6 +14,7 @@ use App\Models\ProjectMembers;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 class ProjectController extends Controller
 {
@@ -97,6 +98,17 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        // Validation
+        $validated = $request->validate([
+            'name' => 'required|unique:Projects|max:100',
+            'type' => 'required',
+            'description' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'image' => 'required',
+            'file' => 'required',
+            'member_id' => 'required',
+        ]);
         $project_id = Project::insertGetId([
             'name' => $request->name,
             'type' => $request->type,
@@ -169,6 +181,93 @@ class ProjectController extends Controller
      */
     public function update(Request $request)
     {
+        // Validation
+        $validated = $request->validate([
+            'name' => 'required|unique:Projects|max:100',
+            'type' => 'required',
+            'description' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'image' => 'required',
+            'file' => 'required',
+            'member_id' => 'required',
+        ]);
+        // image update
+        $image = $request->file('image');
+        $imageIds = $request->input('image_id');
+        if($image){
+            foreach ($image as $index=>$img) {
+                $hasImage = true;
+                isset($imageIds[$index]) ? $imgUpdate = ProjectImages::findOrfail($imageIds[$index]) : $hasImage = false;
+                if ($hasImage) {
+                    $img_ext = Str::random(5).'.'. $img->getClientOriginalExtension();
+                    $old_img = public_path('images/project_image/'.$imgUpdate['image']);
+                    if (file_exists($old_img)) {
+                        unlink($old_img);
+                    }
+                    image::make($img)->save('images/project_image/' . $img_ext);
+
+                    $imgUpdate->image = $img_ext;
+                    $imgUpdate->save();
+                }else {
+                    $img_ext = Str::random(5).'.'. $img->getClientOriginalExtension();
+                    image::make($img)->save('images/project_image/' . $img_ext);
+                    ProjectImages::insert([
+                        'project_id' => $request->id,
+                        'image' => $img_ext,
+                        'created_at' => Carbon::now()
+                    ]);
+                }
+            }
+        }
+        // File Update
+        $files = $request->file('file');
+        $fileIds = $request->input('file_id');
+        if($files){
+            foreach ($files as $index=>$file) {
+                $hasfile = true;
+                isset($fileIds[$index]) ? $fileUpdate = ProjectFiles::findOrfail($fileIds[$index]) : $hasfile = false;
+                if ($hasfile) {
+                    $file_ext = Str::random(5).'.'. $file->getClientOriginalExtension();
+                    $old_file = public_path('\files'.$fileUpdate['file']);
+                    if (file_exists($old_file)) {
+                        unlink($old_file);
+                    }
+                    $file->move(public_path('\files'),$file_ext);
+
+                    $fileUpdate->file = $file_ext;
+                    $fileUpdate->save();
+                }else {
+                    $file_ext = Str::random(5).'.'. $file->getClientOriginalExtension();
+                    $file->move(public_path('\files'),$file_ext);
+                    ProjectFiles::insert([
+                        'project_id' => $request->id,
+                        'file' => $file_ext,
+                        'created_at' => Carbon::now()
+                    ]);
+                }
+            }
+        }
+        // Member Update
+        $memberId = $request->member_id;
+        $memberIds = $request->input('pMember_id');
+        if($memberId){
+            foreach ($memberId as $index=>$member) {
+                $hasMember = true;
+                isset($memberIds[$index]) ? $memberUpdate = ProjectMembers::findOrfail($memberIds[$index]) : $hasMember = false;
+                if ($hasMember) {
+                    $memberUpdate->member_id = $member;
+                    $memberUpdate->save();
+                }else {
+                    ProjectMembers::insert([
+                        'project_id' => $request->id,
+                        'member_id' => $member,
+                        'created_at' => Carbon::now()
+                    ]);
+                }
+            }
+        }
+
         $update = Project::findOrfail($request->id);
         $update->name = $request->name;
         $update->type = $request->type;
@@ -176,39 +275,7 @@ class ProjectController extends Controller
         $update->start_date = $request->start_date;
         $update->end_date = $request->end_date;
         $update->save();
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            foreach ($image as $img) {
-                $imgUpdate = ProjectImages::findOrfail($request->id);
-                $img_ext = Str::random(5).'.'. $img->getClientOriginalExtension();
-                $old_img = public_path('images/project_image/'.$imgUpdate['image']);
-                if (file_exists($old_img)) {
-                    unlink($old_img);
-                }
-                image::make($img)->save('images/project_image/' . $img_ext);
-                $imgUpdate->project_id = $update['id'];
-                $imgUpdate->image = $request->img_ext;
-                $imgUpdate->save();
-            }
-        }
-        if ($request->hasFile('file')) {
-            $files = $request->file('file');
-            foreach ($files as $file) {
-                $file_ext = Str::random(5).'.'. $file->getClientOriginalExtension();
-                $file->move(public_path('\files'),$file_ext);
-                ProjectFiles::insert([
-                    'project_id' => $update->id,
-                    'file' => $file_ext,
-                    'created_at' => Carbon::now()
-                ]);
-            }
-        }
-        foreach ($request->member_id as $value) {
-            $data = new ProjectMembers;
-            $data->member_id = $value;
-            $data->project_id = $update->id;
-            $data->save();
-        }
+
         return redirect('project_list')->with('project_create', 'Project Create Successfully');
     }
 

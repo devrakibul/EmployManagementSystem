@@ -349,6 +349,12 @@
                                     <span>Users</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ url('/attendList') }}" class="waves-effect">
+                                    <i class="fa-solid fa-list"></i>
+                                    <span>Attendance</span>
+                                </a>
+                            </li>
                         @endif
 
                         @if (Auth::user()->status == 1)
@@ -427,11 +433,11 @@
                         <script>
                             document.write(new Date().getFullYear())
 
-                        </script> © Awsome.
+                        </script> © Softinnovationbd.
                     </div>
                     <div class="col-sm-6">
                         <div class="text-sm-right d-none d-sm-block">
-                            Design & Develop by Rakibul Islam
+                            Design & Developed by Rakibul Islam
                         </div>
                     </div>
                 </div>

@@ -80,7 +80,7 @@ Project Create
                                                 <div class="col-10">
                                                     <div data-repeater-list="inner-list">
                                                         @foreach ($projectImages as $projectImage)
-                                                        <input type="hidden" name="image_id" value="{{ $projectImage->id }}">
+                                                        <input type="hidden" name="image_id[]" value="{{ $projectImage->id }}">
                                                             <div data-repeater-item class="row mb-2 remove_image">
                                                                 <div class="col-8">
                                                                     <input type="file" name="image[]"
@@ -114,6 +114,7 @@ Project Create
                                                 <div class="col-10">
                                                     <div data-repeater-list="inner-list">
                                                         @foreach ($projectFiles as $projectFile)
+                                                        <input type="hidden" name="file_id[]" value="{{ $projectFile->id }}">
                                                             <div data-repeater-item class="row mb-2 remove_file">
                                                                 <div class="col-8">
                                                                     <input type="file" name="file[]" class="form-control"
@@ -152,6 +153,7 @@ Project Create
                                                         <div class="col-10">
                                                             <div data-repeater-list="inner-list">
                                                                 @foreach ($projectMembers as $projectMember)
+                                                                <input type="hidden" name="pMember_id[]" value="{{ $projectMember->id }}">
                                                                     <div data-repeater-item class="row mb-2 remove_row">
                                                                         <div class="col-10">
                                                                             <select class="inner form-control"

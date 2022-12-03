@@ -87,12 +87,12 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'name' => ['required'],
-        //     'description' => ['description'],
-        //     'date' => ['date'],
-        //     'image' => ['image'],
-        // ]);
+        $validated = $request->validate([
+            'name' => 'required|unique:Tasks|max:100',
+            'description' => 'required',
+            'date' => 'required',
+            'image' => 'required',
+        ]);
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');

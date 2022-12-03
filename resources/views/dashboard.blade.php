@@ -3,7 +3,7 @@
 Dashboard
 @endsection
 @section('content')
-@if ($attend == '')
+@if ($attend->count() == 0)
     <div class="modal fade" id="myModal">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">

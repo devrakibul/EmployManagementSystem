@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MasterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoleController;
@@ -23,13 +24,14 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::post('/attendance', [DashboardController::class, 'Attendance'])->name('attendance');
 // UserRoute
-Route::get('/user_list', [ProfileController::class, 'UserList'])->name('user_list');
-Route::get('/user_view/{id}', [ProfileController::class, 'UserView'])->name('user_view');
-Route::get('/make_admin/{id}', [ProfileController::class, 'MakeAdmin'])->name('make_admin');
-Route::get('/make_membern/{id}', [ProfileController::class, 'MakeMember'])->name('make_member');
-Route::get('/user_delete/{id}', [ProfileController::class, 'UserDelete'])->name('user_delete');
-Route::post('/attendance', [ProfileController::class, 'Attendance'])->name('attendance');
+Route::get('/user_list', [MasterController::class, 'UserList'])->name('user_list');
+Route::get('/user_view/{id}', [MasterController::class, 'UserView'])->name('user_view');
+Route::get('/make_admin/{id}', [MasterController::class, 'MakeAdmin'])->name('make_admin');
+Route::get('/make_membern/{id}', [MasterController::class, 'MakeMember'])->name('make_member');
+Route::get('/user_delete/{id}', [MasterController::class, 'UserDelete'])->name('user_delete');
+Route::get('/attendList', [MasterController::class, 'AttendList'])->name('attendList');
 
 // ProfileController
 Route::middleware('auth')->group(function () {

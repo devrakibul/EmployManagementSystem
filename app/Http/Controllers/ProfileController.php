@@ -14,20 +14,6 @@ use Image;
 
 class ProfileController extends Controller
 {
-    public function UserList()
-    {
-        $user_list = User::all();
-        return view('user_list', [
-            'user_list' => $user_list,
-        ]);
-    }
-    public function UserView($id)
-    {
-        $user = User::findOrfail($id);
-        return view('user_view', [
-            'user' => $user,
-        ]);
-    }
     /**
      * Display the user's profile form.
      *
@@ -167,34 +153,5 @@ class ProfileController extends Controller
         $Update->save();
 
         return redirect('employee_profile')->with('OtherProfileEdit', 'Profile Edit Successfully');
-    }
-    public function MakeAdmin(Request $request)
-    {
-        $update = User::findOrfail($request->id);
-        $update->status = 1;
-        $update->save();
-
-        return redirect('user_list')->with('MakeAdmin', 'Admin Make Successfully');
-    }
-    public function MakeMember(Request $request)
-    {
-        $update = User::findOrfail($request->id);
-        $update->status = 2;
-        $update->save();
-
-        return redirect('user_list')->with('MakeMember', 'Employee Make Successfully');
-    }
-    public function UserDelete($id)
-    {
-        User::findOrFail($id)->forceDelete();
-        return back()->with('UserDelete', 'User Delete Successfully');
-    }
-    public function Attendance(Request $request)
-    {
-        $data = new Attendance;
-        $data->user_id = Auth::id();
-        $data->attend = $request->attend;
-        $data->save();
-        return back()->with('Attendance', 'Attendance Successfully');
     }
 }

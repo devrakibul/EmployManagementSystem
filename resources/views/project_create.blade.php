@@ -39,22 +39,34 @@ Project Create
                                 <div class="form-group row mb-4">
                                     <label for="name" class="col-form-label col-lg-2">Project Name</label>
                                     <div class="col-lg-10">
-                                        <input id="name" name="name" type="text" class="form-control"
+                                        <input id="name" name="name" type="text"
+                                            class="form-control @error('name') is-invalid @enderror"
                                             placeholder="Enter Project Name...">
+                                        @error('name')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">
                                     <label for="type" class="col-form-label col-lg-2">Project Type</label>
                                     <div class="col-lg-10">
-                                        <input id="type" name="type" type="text" class="form-control"
+                                        <input id="type" name="type" type="text"
+                                            class="form-control @error('type') is-invalid @enderror"
                                             placeholder="Enter Project Type...">
+                                        @error('type')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">
                                     <label for="description" class="col-form-label col-lg-2">Project Description</label>
                                     <div class="col-lg-10">
-                                        <textarea class="form-control summernote" id="summernote" name="description" rows="3"
+                                        <textarea class="form-control summernote @error('description') is-invalid @enderror"
+                                            id="summernote" name="description" rows="3"
                                             placeholder="Enter Project Description..."></textarea>
+                                        @error('description')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -63,10 +75,16 @@ Project Create
                                     <div class="col-lg-10">
                                         <div class="input-daterange input-group" data-provide="datepicker"
                                             data-date-format="dd M, yyyy" data-date-autoclose="true">
-                                            <input type="text" class="form-control" placeholder="Start Date"
-                                                name="start_date" />
-                                            <input type="text" class="form-control" placeholder="End Date"
-                                                name="end_date" />
+                                            <input type="text" class="form-control @error('start_date') is-invalid @enderror"
+                                                placeholder="Start Date" name="start_date" />
+                                            @error('start_date')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                            <input type="text" class="form-control @error('end_date') is-invalid @enderror"
+                                                placeholder="End Date" name="end_date" />
+                                            @error('end_date')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -81,7 +99,11 @@ Project Create
                                                         <div data-repeater-item class="row mb-2 remove_image">
                                                             <div class="col-10">
                                                                 <input type="file" name="image[]"
-                                                                    class="form-control" id="image" accept="image/*">
+                                                                    class="form-control @error('image') is-invalid @enderror"
+                                                                    id="image" accept="image/*">
+                                                                @error('image')
+                                                                <div class="alert alert-danger">{{ $message }}</div>
+                                                                @enderror
                                                             </div>
                                                             <div class="col-2">
                                                                 <span class="delete_image btn btn-danger project_btn"><i
@@ -109,9 +131,13 @@ Project Create
                                                     <div data-repeater-list="inner-list">
                                                         <div data-repeater-item class="row mb-2 remove_file">
                                                             <div class="col-10">
-                                                                <input type="file" name="file[]" class="form-control"
+                                                                <input type="file" name="file[]"
+                                                                    class="form-control @error('file') is-invalid @enderror"
                                                                     id="file"
                                                                     accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                                                @error('file')
+                                                                <div class="alert alert-danger">{{ $message }}</div>
+                                                                @enderror
                                                             </div>
                                                             <div class="col-2">
                                                                 <span class="delete_file btn btn-danger project_btn"><i
@@ -142,13 +168,19 @@ Project Create
                                                             <div data-repeater-list="inner-list">
                                                                 <div data-repeater-item class="row mb-2 remove_row">
                                                                     <div class="col-10">
-                                                                        <select class="inner form-control"
+                                                                        <select
+                                                                            class="inner form-control @error('member_id') is-invalid @enderror"
                                                                             name="member_id[]">
-                                                                            <option value="">Select Member</option>
+                                                                            <option value="" class="@error('member_id') is-invalid @enderror">Select Member</option>
                                                                             @foreach ($users as $user)
-                                                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                                            <option value="{{ $user->id }}">
+                                                                                {{ $user->name }}</option>
                                                                             @endforeach
                                                                         </select>
+                                                                        @error('member_id')
+                                                                        <div class="alert alert-danger">{{ $message }}
+                                                                        </div>
+                                                                        @enderror
                                                                     </div>
                                                                     <div class="col-2">
                                                                         <span
@@ -185,18 +217,18 @@ Project Create
         </div> <!-- container-fluid -->
     </div>
     <!-- End Page-content -->
-@endsection
-@section('footer_js')
-<script type="text/javascript">
-    $(document).ready(function () {
+    @endsection
+    @section('footer_js')
+    <script type="text/javascript">
+        $(document).ready(function () {
 
-        $(".delete_image").remove();
-        //when the Add Field button is clicked
-        $("#add_image").click(function (e) {
-            $(".delete_image").fadeIn("1500");
-            //Append a new row of code to the "#files" div
-            $("#images").append(
-                `<div id="images">
+            $(".delete_image").remove();
+            //when the Add Field button is clicked
+            $("#add_image").click(function (e) {
+                $(".delete_image").fadeIn("1500");
+                //Append a new row of code to the "#files" div
+                $("#images").append(
+                    `<div id="images">
                     <div class="inner-repeater row">
                         <div class="col-10">
                             <div data-repeater-list="inner-list">
@@ -213,25 +245,26 @@ Project Create
                     </div>
                 </div>`
                 );
-        });
+            });
 
-        $(Document).on("click", ".delete_image", function (e) {
+            $(Document).on("click", ".delete_image", function (e) {
                 $(this).closest(".remove_image").remove();
             });
 
-    });
-</script>
+        });
 
-<script type="text/javascript">
-    $(document).ready(function () {
+    </script>
 
-        $(".delete_file").remove();
-        //when the Add Field button is clicked
-        $("#add_file").click(function (e) {
-            $(".delete_file").fadeIn("1500");
-            //Append a new row of code to the "#files" div
-            $("#files").append(
-                `<div id="files">
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".delete_file").remove();
+            //when the Add Field button is clicked
+            $("#add_file").click(function (e) {
+                $(".delete_file").fadeIn("1500");
+                //Append a new row of code to the "#files" div
+                $("#files").append(
+                    `<div id="files">
                     <div class="inner-repeater row">
                         <div class="col-10">
                             <div data-repeater-list="inner-list">
@@ -248,25 +281,26 @@ Project Create
                     </div>
                 </div>`
                 );
-        });
+            });
 
-        $(Document).on("click", ".delete_file", function (e) {
+            $(Document).on("click", ".delete_file", function (e) {
                 $(this).closest(".remove_file").remove();
             });
 
-    });
-</script>
+        });
 
-<script type="text/javascript">
-    $(document).ready(function () {
+    </script>
 
-        $(".delete").remove();
-        //when the Add Field button is clicked
-        $("#add").click(function (e) {
-            $(".delete").fadeIn("1500");
-            //Append a new row of code to the "#items" div
-            $("#items").append(
-                `<div id="items">
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".delete").remove();
+            //when the Add Field button is clicked
+            $("#add").click(function (e) {
+                $(".delete").fadeIn("1500");
+                //Append a new row of code to the "#items" div
+                $("#items").append(
+                    `<div id="items">
                     <div data-repeater-list="outer-list">
                         <div data-repeater-item>
 
@@ -296,12 +330,13 @@ Project Create
                     </div>
                 </div>`
                 );
+            });
+
+            $(Document).on("click", ".delete", function (e) {
+                $(this).closest(".remove_row").remove();
+            });
+
         });
 
-        $(Document).on("click", ".delete", function (e) {
-            $(this).closest(".remove_row").remove();
-        });
-
-    });
-</script>
-@endsection
+    </script>
+    @endsection
