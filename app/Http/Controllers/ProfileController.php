@@ -84,6 +84,19 @@ class ProfileController extends Controller
     }
     public function ProfileUpdate(Request $request)
     {
+        $validated = $request->validate([
+            'phone' => 'required',
+            'designation' => 'required',
+            'present_address' => 'required',
+            'date_of_birth' => 'required',
+            'facebook' => 'required',
+            'twitter' => 'required',
+            'linkdin' => 'required',
+            'github' => 'required',
+            'website' => 'required',
+            'image' => 'required',
+            'cv' => 'required',
+        ]);
         $Update = User::findOrfail($request->id);
         if ($request->file('image') && $request->file('cv')) {
             $image = $request->file('image');
@@ -140,6 +153,17 @@ class ProfileController extends Controller
     }
     public function OtherProfileUpdate(Request $request)
     {
+        $validated = $request->validate([
+            'father_name' => 'required',
+            'mother_name' => 'required',
+            'permanent_address' => 'required',
+            'gender' => 'required',
+            'maritial_status' => 'required',
+            'nationality' => 'required',
+            'nationalid' => 'required',
+            'bank' => 'required',
+            'bank_ac' => 'required',
+        ]);
         $Update = User::findOrfail($request->id);
         $Update->father_name = $request->father_name;
         $Update->mother_name = $request->mother_name;

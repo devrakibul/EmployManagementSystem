@@ -107,7 +107,7 @@ class ProjectController extends Controller
             'end_date' => 'required',
             'image' => 'required',
             'file' => 'required',
-            'member_id' => 'required',
+            'member_id' => 'required'
         ]);
         $project_id = Project::insertGetId([
             'name' => $request->name,

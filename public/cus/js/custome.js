@@ -1,3 +1,4 @@
+// Profile Script
 var fnameError = document.getElementById('f_name_error');
 var lnameError = document.getElementById('l_name_error');
 var fatherError = document.getElementById('father_error');
@@ -282,3 +283,103 @@ function validateForm() {
       return false;
    }
 }
+
+// Project Script
+
+var ProjectNameError = document.getElementById('ProjectName_error');
+var ProjectTypeError = document.getElementById('ProjectType_error');
+var ProjectDescriptionError = document.getElementById('ProjectDescription_error');
+var ProjectStartDateError = document.getElementById('ProjectStartDate_error');
+var ProjectEndDateError = document.getElementById('ProjectEndDate_error');
+var ProjectImagesError = document.getElementById('ProjectImages_error');
+var ProjectFilesError = document.getElementById('ProjectFiles_error');
+var ProjectMembersError = document.getElementById('ProjectMembers_error');
+
+function validateProjectName() {
+    var ProjectName = document.getElementById('ProjectName').value;
+
+    if (ProjectName.length == 0) {
+        ProjectNameError.innerHTML = 'Project Name is Required';
+       return false;
+    }
+    ProjectNameError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+    return true;
+ }
+ function validateProjectType() {
+    var ProjectType = document.getElementById('ProjectType').value;
+
+    if (ProjectType.length == 0) {
+        ProjectTypeError.innerHTML = 'Project Type is Required';
+       return false;
+    }
+    ProjectTypeError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+    return true;
+ }
+ function validateProjectDescription() {
+    var ProjectDescription = document.getElementById('summernote').value;
+
+    if (ProjectDescription.length == 0) {
+        ProjectDescriptionError.innerHTML = 'Project Description is Required';
+       return false;
+    }
+    ProjectDescriptionError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+    return true;
+ }
+ function validateProjectStartDate() {
+    var ProjectStartDate = document.getElementById('ProjectStartDate').value;
+
+    if (ProjectStartDate.length == 0) {
+        ProjectStartDateError.innerHTML = 'Project Start Date is Required';
+       return false;
+    }
+    ProjectStartDateError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+    return true;
+ }
+ function validateProjectEndDate() {
+    var ProjectEndDate = document.getElementById('ProjectEndDate').value;
+
+    if (ProjectEndDate.length == 0) {
+        ProjectEndDateError.innerHTML = 'Project End Date is Required';
+       return false;
+    }
+    ProjectEndDateError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+    return true;
+ }
+ function validateProjectImages() {
+    var ProjectImages = document.getElementById('ProjectImages').value;
+
+    if (ProjectImages.length == 0) {
+        ProjectImagesError.innerHTML = 'Project Images is Required';
+       return false;
+    }
+    ProjectImagesError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+    return true;
+ }
+ function validateProjectFiles() {
+    var ProjectFiles = document.getElementById('ProjectFiles').value;
+
+    if (ProjectFiles.length == 0) {
+        ProjectFilesError.innerHTML = 'Project Files is Required';
+       return false;
+    }
+    ProjectFilesError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+    return true;
+ }
+ function validateProjectMembers() {
+    var ProjectMembers = document.getElementById('ProjectMembers').value;
+
+    if (ProjectMembers.length == 0) {
+        ProjectMembersError.innerHTML = 'Project Members is Required';
+       return false;
+    }
+    ProjectMembersError.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+    return true;
+ }
+ function validateForm() {
+    if (!validateProjectName() || !validateProjectType() || !validateProjectDescription() || !validateProjectStartDate() || !validateProjectEndDate() || !validateProjectImages() || !validateProjectFiles() || !validateProjectMembers()) {
+       submitError.style.display = 'block';
+       submitError.innerHTML = 'Please Fix Input Fild than submit';
+       setTimeout (function(){submitError.style.display = 'none';}, 3000);
+       return false;
+    }
+ }

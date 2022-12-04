@@ -33,6 +33,7 @@ Profile Edit
                     <div class="card">
                         <div class="card-body">
                             <h2 class="text-center">Profile Edit</h2>
+                            <span id="submit_error"></span>
                             <form class="form-horizontal" action="{{ url('/other_profile_update') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf

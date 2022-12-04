@@ -34,36 +34,40 @@ Project Create
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title mb-4">Create New Project</h4>
+                            <span id="submit_error"></span>
                             <form action="{{ url('project_post') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group row mb-4">
-                                    <label for="name" class="col-form-label col-lg-2">Project Name</label>
-                                    <div class="col-lg-10">
-                                        <input id="name" name="name" type="text"
+                                    <label for="ProjectName" class="col-form-label col-lg-2">Project Name</label>
+                                    <div class="col-lg-10 input_group">
+                                        <input id="ProjectName" name="name" type="text" onkeyup="validateProjectName()"
                                             class="form-control @error('name') is-invalid @enderror"
                                             placeholder="Enter Project Name...">
+                                            <span class="script_error" id="ProjectName_error"></span>
                                         @error('name')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="form-group row mb-4">
-                                    <label for="type" class="col-form-label col-lg-2">Project Type</label>
+                                <div class="form-group row mb-4 input_group">
+                                    <label for="ProjectType" class="col-form-label col-lg-2">Project Type</label>
                                     <div class="col-lg-10">
-                                        <input id="type" name="type" type="text"
+                                        <input id="ProjectType" name="type" type="text" onkeyup="validateProjectType()"
                                             class="form-control @error('type') is-invalid @enderror"
                                             placeholder="Enter Project Type...">
+                                            <span class="script_error" id="ProjectType_error"></span>
                                         @error('type')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="form-group row mb-4">
+                                <div class="form-group row mb-4 input_group">
                                     <label for="description" class="col-form-label col-lg-2">Project Description</label>
                                     <div class="col-lg-10">
                                         <textarea class="form-control summernote @error('description') is-invalid @enderror"
-                                            id="summernote" name="description" rows="3"
+                                            id="summernote" name="description" onkeyup="validateProjectDescription()"
                                             placeholder="Enter Project Description..."></textarea>
+                                            <span class="script_error" id="ProjectDescription_error"></span>
                                         @error('description')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
@@ -75,16 +79,22 @@ Project Create
                                     <div class="col-lg-10">
                                         <div class="input-daterange input-group" data-provide="datepicker"
                                             data-date-format="dd M, yyyy" data-date-autoclose="true">
-                                            <input type="text" class="form-control @error('start_date') is-invalid @enderror"
-                                                placeholder="Start Date" name="start_date" />
-                                            @error('start_date')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
-                                            <input type="text" class="form-control @error('end_date') is-invalid @enderror"
-                                                placeholder="End Date" name="end_date" />
-                                            @error('end_date')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
+                                            <div class="input_group col-6">
+                                                <input type="text" class="form-control @error('start_date') is-invalid @enderror"
+                                                    placeholder="Start Date" name="start_date" id="ProjectStartDate" onchange="validateProjectStartDate()"/>
+                                                    <span class="script_error" id="ProjectStartDate_error"></span>
+                                                @error('start_date')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="input_group col-6">
+                                                <input type="text" class="form-control @error('end_date') is-invalid @enderror"
+                                                    placeholder="End Date" name="end_date" id="ProjectEndDate" onchange="validateProjectEndDate()"/>
+                                                    <span class="script_error" id="ProjectEndDate_error"></span>
+                                                @error('end_date')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -97,10 +107,11 @@ Project Create
                                                 <div class="col-10">
                                                     <div data-repeater-list="inner-list">
                                                         <div data-repeater-item class="row mb-2 remove_image">
-                                                            <div class="col-10">
-                                                                <input type="file" name="image[]"
+                                                            <div class="col-10 input_group">
+                                                                <input type="file" name="image[]" onchange="validateProjectImages()"
                                                                     class="form-control @error('image') is-invalid @enderror"
-                                                                    id="image" accept="image/*">
+                                                                    id="ProjectImages" accept="image/*">
+                                                                    <span class="script_error" id="ProjectImages_error"></span>
                                                                 @error('image')
                                                                 <div class="alert alert-danger">{{ $message }}</div>
                                                                 @enderror
@@ -130,11 +141,12 @@ Project Create
                                                 <div class="col-10">
                                                     <div data-repeater-list="inner-list">
                                                         <div data-repeater-item class="row mb-2 remove_file">
-                                                            <div class="col-10">
-                                                                <input type="file" name="file[]"
+                                                            <div class="col-10 input_group">
+                                                                <input type="file" name="file[]" onchange="validateProjectFiles()"
                                                                     class="form-control @error('file') is-invalid @enderror"
-                                                                    id="file"
+                                                                    id="ProjectFiles"
                                                                     accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                                                    <span class="script_error" id="ProjectFiles_error"></span>
                                                                 @error('file')
                                                                 <div class="alert alert-danger">{{ $message }}</div>
                                                                 @enderror
@@ -167,16 +179,17 @@ Project Create
                                                         <div class="col-10">
                                                             <div data-repeater-list="inner-list">
                                                                 <div data-repeater-item class="row mb-2 remove_row">
-                                                                    <div class="col-10">
+                                                                    <div class="col-10 input_group">
                                                                         <select
                                                                             class="inner form-control @error('member_id') is-invalid @enderror"
-                                                                            name="member_id[]">
-                                                                            <option value="" class="@error('member_id') is-invalid @enderror">Select Member</option>
+                                                                            name="member_id[]" id="ProjectMembers" onchange="validateProjectMembers()">
+                                                                            <option value="">Select Member</option>
                                                                             @foreach ($users as $user)
                                                                             <option value="{{ $user->id }}">
                                                                                 {{ $user->name }}</option>
                                                                             @endforeach
                                                                         </select>
+                                                                        <span class="script_error" id="ProjectMembers_error"></span>
                                                                         @error('member_id')
                                                                         <div class="alert alert-danger">{{ $message }}
                                                                         </div>
