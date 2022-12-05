@@ -34,6 +34,9 @@ Project Create
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title mb-4">Create New Project</h4>
+                            @if(isset($error))
+                                <?php $errors = json_decode(json_encode($error), true); ?>
+                            @endif
                             <span id="submit_error"></span>
                             <form action="{{ url('project_post') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
@@ -41,36 +44,36 @@ Project Create
                                     <label for="ProjectName" class="col-form-label col-lg-2">Project Name</label>
                                     <div class="col-lg-10 input_group">
                                         <input id="ProjectName" name="name" type="text" onkeyup="validateProjectName()"
-                                            class="form-control @error('name') is-invalid @enderror"
+                                            class="form-control @if(isset($error) && isset($errors["name"][0])) is-invalid @endif"
                                             placeholder="Enter Project Name...">
                                             <span class="script_error" id="ProjectName_error"></span>
-                                        @error('name')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
+                                        @if(isset($error) && isset($errors["name"][0]))
+                                        <div class="alert alert-danger">{{ $errors["name"][0] }}</div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4 input_group">
                                     <label for="ProjectType" class="col-form-label col-lg-2">Project Type</label>
                                     <div class="col-lg-10">
                                         <input id="ProjectType" name="type" type="text" onkeyup="validateProjectType()"
-                                            class="form-control @error('type') is-invalid @enderror"
+                                            class="form-control @if(isset($error) && isset($errors["type"][0])) is-invalid @endif"
                                             placeholder="Enter Project Type...">
                                             <span class="script_error" id="ProjectType_error"></span>
-                                        @error('type')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
+                                        @if(isset($error) && isset($errors["type"][0]))
+                                        <div class="alert alert-danger">{{ $errors["type"][0] }}</div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4 input_group">
                                     <label for="description" class="col-form-label col-lg-2">Project Description</label>
                                     <div class="col-lg-10">
-                                        <textarea class="form-control summernote @error('description') is-invalid @enderror"
+                                        <textarea class="form-control summernote @if(isset($error) && isset($errors["description"][0])) is-invalid @endif"
                                             id="summernote" name="description" onkeyup="validateProjectDescription()"
                                             placeholder="Enter Project Description..."></textarea>
                                             <span class="script_error" id="ProjectDescription_error"></span>
-                                        @error('description')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
+                                        @if(isset($error) && isset($errors["description"][0]))
+                                        <div class="alert alert-danger">{{ $errors["description"][0] }}</div>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -80,20 +83,20 @@ Project Create
                                         <div class="input-daterange input-group" data-provide="datepicker"
                                             data-date-format="dd M, yyyy" data-date-autoclose="true">
                                             <div class="input_group col-6">
-                                                <input type="text" class="form-control @error('start_date') is-invalid @enderror"
+                                                <input type="text" class="form-control @if(isset($error) && isset($errors["start_date"][0])) is-invalid @endif"
                                                     placeholder="Start Date" name="start_date" id="ProjectStartDate" onchange="validateProjectStartDate()"/>
                                                     <span class="script_error" id="ProjectStartDate_error"></span>
-                                                @error('start_date')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                                @enderror
+                                                @if(isset($error) && isset($errors["start_date"][0]))
+                                                <div class="alert alert-danger">{{ $errors["start_date"][0] }}</div>
+                                                @endif
                                             </div>
                                             <div class="input_group col-6">
-                                                <input type="text" class="form-control @error('end_date') is-invalid @enderror"
+                                                <input type="text" class="form-control @if(isset($error) && isset($errors["end_date"][0])) is-invalid @endif"
                                                     placeholder="End Date" name="end_date" id="ProjectEndDate" onchange="validateProjectEndDate()"/>
                                                     <span class="script_error" id="ProjectEndDate_error"></span>
-                                                @error('end_date')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                                @enderror
+                                                @if(isset($error) && isset($errors["end_date"][0]))
+                                                <div class="alert alert-danger">{{ $errors["end_date"][0] }}</div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -109,12 +112,12 @@ Project Create
                                                         <div data-repeater-item class="row mb-2 remove_image">
                                                             <div class="col-10 input_group">
                                                                 <input type="file" name="image[]" onchange="validateProjectImages()"
-                                                                    class="form-control @error('image') is-invalid @enderror"
+                                                                    class="form-control @if(isset($error) && isset($errors["image"][0])) is-invalid @endif"
                                                                     id="ProjectImages" accept="image/*">
                                                                     <span class="script_error" id="ProjectImages_error"></span>
-                                                                @error('image')
-                                                                <div class="alert alert-danger">{{ $message }}</div>
-                                                                @enderror
+                                                                @if(isset($error) && isset($errors["image"][0]))
+                                                                <div class="alert alert-danger">{{ $errors["image"][0] }}</div>
+                                                                @endif
                                                             </div>
                                                             <div class="col-2">
                                                                 <span class="delete_image btn btn-danger project_btn"><i
@@ -143,13 +146,13 @@ Project Create
                                                         <div data-repeater-item class="row mb-2 remove_file">
                                                             <div class="col-10 input_group">
                                                                 <input type="file" name="file[]" onchange="validateProjectFiles()"
-                                                                    class="form-control @error('file') is-invalid @enderror"
+                                                                    class="form-control @if(isset($error) && isset($errors["file"][0])) is-invalid @endif"
                                                                     id="ProjectFiles"
                                                                     accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                                                     <span class="script_error" id="ProjectFiles_error"></span>
-                                                                @error('file')
-                                                                <div class="alert alert-danger">{{ $message }}</div>
-                                                                @enderror
+                                                                @if(isset($error) && isset($errors["file"][0]))
+                                                                <div class="alert alert-danger">{{ $errors["file"][0] }}</div>
+                                                                @endif
                                                             </div>
                                                             <div class="col-2">
                                                                 <span class="delete_file btn btn-danger project_btn"><i
@@ -181,7 +184,7 @@ Project Create
                                                                 <div data-repeater-item class="row mb-2 remove_row">
                                                                     <div class="col-10 input_group">
                                                                         <select
-                                                                            class="inner form-control @error('member_id') is-invalid @enderror"
+                                                                            class="inner form-control @if(isset($error) && isset($errors["member_id.0"][0])) is-invalid @endif"
                                                                             name="member_id[]" id="ProjectMembers" onchange="validateProjectMembers()">
                                                                             <option value="">Select Member</option>
                                                                             @foreach ($users as $user)
@@ -190,10 +193,10 @@ Project Create
                                                                             @endforeach
                                                                         </select>
                                                                         <span class="script_error" id="ProjectMembers_error"></span>
-                                                                        @error('member_id')
-                                                                        <div class="alert alert-danger">{{ $message }}
+                                                                        @if(isset($error) && isset($errors["member_id.0"][0]))
+                                                                        <div class="alert alert-danger">{{ $errors["member_id.0"][0] }}
                                                                         </div>
-                                                                        @enderror
+                                                                        @endif
                                                                     </div>
                                                                     <div class="col-2">
                                                                         <span

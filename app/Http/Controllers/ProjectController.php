@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\ProjectFiles;
 use App\Models\ProjectImages;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -98,8 +99,20 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         // Validation
-        $validated = $request->validate([
+        // $validated = $request->validate([
+        //     'name' => 'required|unique:Projects|max:100',
+        //     'type' => 'required',
+        //     'description' => 'required',
+        //     'start_date' => 'required',
+        //     'end_date' => 'required',
+        //     'image' => 'required',
+        //     'file' => 'required',
+        //     'member_id.*' => 'required',
+        // ]);
+
+        $valid = Validator::make($request->all(), [
             'name' => 'required|unique:Projects|max:100',
             'type' => 'required',
             'description' => 'required',
@@ -107,8 +120,16 @@ class ProjectController extends Controller
             'end_date' => 'required',
             'image' => 'required',
             'file' => 'required',
-            'member_id' => 'required'
+            'member_id.*' => 'required',
         ]);
+        if ($valid->fails()) {
+            $users = User::all();
+            return view('project_create', [
+                'error' => $valid->errors(),
+                'users' => $users,
+            ]);
+        }
+
         $project_id = Project::insertGetId([
             'name' => $request->name,
             'type' => $request->type,

@@ -155,8 +155,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'member_id.0' => [
+            'required' => 'Member field is required.',
         ],
     ],
 

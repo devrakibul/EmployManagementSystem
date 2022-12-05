@@ -477,7 +477,7 @@
     @yield('footer_js')
     <script>
         $(document).ready(function () {
-            $(".alert").fadeOut(3000);
+            // $(".alert").fadeOut(3000);
         });
 
     </script>

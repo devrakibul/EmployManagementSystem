@@ -36,11 +36,6 @@ Projects List
                                 {{ session('project_create') }}
                             </div>
                         @endif
-                        @if (session('project_create'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ session('project_create') }}
-                            </div>
-                        @endif
                         <div class="table-responsive">
                             <table class="table project-list-table table-nowrap table-centered table-borderless">
                                 <thead>
