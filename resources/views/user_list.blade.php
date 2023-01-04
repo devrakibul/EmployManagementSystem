@@ -53,15 +53,15 @@ Users
                                             @if ($user->status == 1)
                                             <tr>
                                                 <td>
-                                                    <h5 class="text-truncate font-size-14"><a href="#"
+                                                    <h5 class="text-truncate font-size-14"><a href="{{ url('/user_view', $user->id) }}"
                                                             class="text-dark">{{ $user->id }}</a></h5>
                                                 </td>
                                                 <td>
-                                                    <h5 class="text-truncate font-size-14"><a href="#"
+                                                    <h5 class="text-truncate font-size-14"><a href="{{ url('/user_view', $user->id) }}"
                                                             class="text-dark">{{ $user->name }}</a></h5>
                                                 </td>
                                                 <td>
-                                                    <h5 class="text-truncate font-size-14"><a href="#"
+                                                    <h5 class="text-truncate font-size-14"><a href="{{ url('/user_view', $user->id) }}"
                                                             class="text-dark">{{ $user->email }}</a></h5>
                                                 </td>
                                                 <td><span class="badge badge-primary">Admin</span></td>
@@ -86,7 +86,7 @@ Users
                         </div>
                     </div>
                     <div class="card">
-                        <h3 class="card-title mb-3 mt-3 text-center">Member</h3>
+                        <h3 class="card-title mb-3 mt-3 text-center">Employes</h3>
                         @if (session('MakeMember'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session('MakeMember') }}
@@ -108,15 +108,15 @@ Users
                                         @if ($user->status == 2)
                                             <tr>
                                                 <td>
-                                                    <h5 class="text-truncate font-size-14"><a href="#"
+                                                    <h5 class="text-truncate font-size-14"><a href="{{ url('/user_view', $user->id) }}"
                                                             class="text-dark">{{ $user->id }}</a></h5>
                                                 </td>
                                                 <td>
-                                                    <h5 class="text-truncate font-size-14"><a href="#"
+                                                    <h5 class="text-truncate font-size-14"><a href="{{ url('/user_view', $user->id) }}"
                                                             class="text-dark">{{ $user->name }}</a></h5>
                                                 </td>
                                                 <td>
-                                                    <h5 class="text-truncate font-size-14"><a href="#"
+                                                    <h5 class="text-truncate font-size-14"><a href="{{ url('/user_view', $user->id) }}"
                                                             class="text-dark">{{ $user->email }}</a></h5>
                                                 </td>
                                                 <td><span class="badge badge-success">Member</span></td>

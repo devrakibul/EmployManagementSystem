@@ -48,13 +48,13 @@ Projects List
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($projects as $project)
+                                    @foreach ($projects as $key => $project)
                                         @if ($project->status == 1)
                                             <tr>
-                                                <td><img src="{{ asset('assets/images/companies/img-1.png') }}" alt="" class="avatar-sm"></td>
+                                                <td>{{ $project->id }}</td>
+                                                {{-- <td>{{ $projects->firstItem() + $key }}</td> --}}
                                                 <td>
-                                                    <h5 class="text-truncate font-size-14"><a href="#"
-                                                            class="text-dark">{{ $project->name }}</a></h5>
+                                                    <h5 class="text-truncate font-size-14"><a href="{{ url('/projects_overview', $project->id) }}" class="text-dark">{{ $project->name }}</a></h5>
                                                     <p class="text-muted mb-0">{{ $project->type }}</p>
                                                 </td>
                                                 <td>{{ $project->end_date }}</td>
@@ -66,8 +66,7 @@ Projects List
                                                             <i class="mdi mdi-dots-horizontal font-size-18"></i>
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            <a class="dropdown-item" href="{{ url('/projects_overview', $project->id) }}">View</a>
-                                                            <a class="dropdown-item" href="project_accept.php">Accept</a>
+                                                            <a class="dropdown-item" href="{{ url('/projects_accept', $project->id) }}">Accept</a>
                                                             <a class="dropdown-item" href="{{ url('/project_edit', $project->id) }}">Edit</a>
                                                             <a class="dropdown-item" href="project_delete.php">Delete</a>
                                                         </div>
@@ -79,25 +78,15 @@ Projects List
                                     @foreach ($projects as $project)
                                         @if ($project->status == 2)
                                             <tr>
-                                                <td><img src="assets/images/companies/img-1.png" alt="" class="avatar-sm"></td>
+                                                <td>{{ $project->id }}</td>
+                                                {{-- <td>{{ $projects->firstItem() + $key }}</td> --}}
                                                 <td>
                                                     <h5 class="text-truncate font-size-14"><a href="#"
-                                                            class="text-dark"></a></h5>
-                                                    <p class="text-muted mb-0"></p>
+                                                            class="text-dark">{{ $project->name }}</a></h5>
+                                                    <p class="text-muted mb-0">{{ $project->type }}</p>
                                                 </td>
-                                                <td></td>
-                                                <td><span class="badge badge-success">Complete</span></td>
-                                                <td>
-                                                    <div class="team">
-                                                        <a href="javascript: void(0);" class="team-member d-inline-block"
-                                                            data-toggle="tooltip" data-placement="top" title=""
-                                                            data-original-title="Daniel Canales">
-                                                            <img src="assets/images/users/avatar.jpg"
-                                                                class="rounded-circle avatar-xs m-1" alt="">
-                                                        </a>
-
-                                                    </div>
-                                                </td>
+                                                <td>{{ $project->end_date }}</td>
+                                                <td><span class="badge badge-primary">Working</span></td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown"
@@ -105,9 +94,9 @@ Projects List
                                                             <i class="mdi mdi-dots-horizontal font-size-18"></i>
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            <a class="dropdown-item" href="#">Action</a>
-                                                            <a class="dropdown-item" href="#">Another action</a>
-                                                            <a class="dropdown-item" href="#">Something else here</a>
+                                                            <a class="dropdown-item" href="{{ url('/projects_complete', $project->id) }}">Complete</a>
+                                                            <a class="dropdown-item" href="{{ url('/project_edit', $project->id) }}">Edit</a>
+                                                            <a class="dropdown-item" href="project_delete.php">Delete</a>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -117,25 +106,15 @@ Projects List
                                     @foreach ($projects as $project)
                                         @if ($project->status == 3)
                                             <tr>
-                                                <td><img src="assets/images/companies/img-1.png" alt="" class="avatar-sm"></td>
+                                                <td>{{ $project->id }}</td>
+                                                {{-- <td>{{ $projects->firstItem() + $key }}</td> --}}
                                                 <td>
                                                     <h5 class="text-truncate font-size-14"><a href="#"
-                                                            class="text-dark"></a></h5>
-                                                    <p class="text-muted mb-0"></p>
+                                                            class="text-dark">{{ $project->name }}</a></h5>
+                                                    <p class="text-muted mb-0">{{ $project->type }}</p>
                                                 </td>
-                                                <td></td>
-                                                <td><span class="badge badge-danger">Delay</span></td>
-                                                <td>
-                                                    <div class="team">
-                                                        <a href="javascript: void(0);" class="team-member d-inline-block"
-                                                            data-toggle="tooltip" data-placement="top" title=""
-                                                            data-original-title="Daniel Canales">
-                                                            <img src="assets/images/users/avatar.jpg"
-                                                                class="rounded-circle avatar-xs m-1" alt="">
-                                                        </a>
-
-                                                    </div>
-                                                </td>
+                                                <td>{{ $project->end_date }}</td>
+                                                <td><span class="badge badge-success">Complete</span></td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown"
@@ -143,9 +122,34 @@ Projects List
                                                             <i class="mdi mdi-dots-horizontal font-size-18"></i>
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            <a class="dropdown-item" href="">Action</a>
-                                                            <a class="dropdown-item" href="#">Another action</a>
-                                                            <a class="dropdown-item" href="#">Something else here</a>
+                                                            <a class="dropdown-item" href="{{ url('/project_edit', $project->id) }}">Edit</a>
+                                                            <a class="dropdown-item" href="project_delete.php">Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($projects as $project)
+                                        @if ($project->status == 4)
+                                            <tr>
+                                                <td>{{ $project->id }}</td>
+                                                {{-- <td>{{ $projects->firstItem() + $key }}</td> --}}
+                                                <td>
+                                                    <h5 class="text-truncate font-size-14"><a href="#"
+                                                            class="text-dark">{{ $project->name }}</a></h5>
+                                                    <p class="text-muted mb-0">{{ $project->type }}</p>
+                                                </td>
+                                                <td>{{ $project->end_date }}</td>
+                                                <td><span class="badge badge-danger">Delay</span></td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                            <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item" href="project_delete.php">Delete</a>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -163,8 +167,7 @@ Projects List
             <div class="row">
                 <div class="col-12">
                     <div class="text-center my-3">
-                        <a href="javascript:void(0);" class="text-success"><i
-                                class="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i> Load more </a>
+                        {{-- {{ $projects->links() }} --}}
                     </div>
                 </div> <!-- end col-->
             </div>

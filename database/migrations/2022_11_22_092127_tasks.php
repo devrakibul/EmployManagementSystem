@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('date');
             $table->string('image');
             $table->string('status')->default(1)->comment('1=Pending 2=Inprogress 3=Complete');
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

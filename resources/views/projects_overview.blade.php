@@ -13,7 +13,7 @@ Projects Overview
 
     <div class="page-content">
         <div class="container-fluid">
-            <input type="hidden" name="id" value="{{ $project->id }}">
+            <input type="hidden" name="id" value="{{ $single_project->id }}">
             <!-- start page title -->
             <div class="row">
                 <div class="col-12">
@@ -40,20 +40,20 @@ Projects Overview
                                 <img src="{{ asset('assets/images/companies/img-1.png') }}" alt="" class="avatar-sm mr-4">
 
                                 <div class="media-body overflow-hidden">
-                                    <h5 class="text-truncate font-size-15">{{  $project->name  }}</h5>
+                                    <h5 class="text-truncate font-size-15">{{  $single_project->name  }}</h5>
                                 </div>
                             </div>
 
                             <h5 class="font-size-15 mt-4">Project Details :</h5>
 
-                            <p class="text-muted">{!!  $project->description  !!}</p>
+                            <p class="text-muted">{!!  $single_project->description  !!}</p>
 
                             <div class="row task-dates">
                                 <div class="col-sm-4 col-6">
                                     <div class="mt-4">
                                         <h5 class="font-size-14"><i class="bx bx-calendar mr-1 text-primary"></i> Start
                                             Date</h5>
-                                        <p class="text-muted mb-0">{{  $project->start_date  }}</p>
+                                        <p class="text-muted mb-0">{{  $single_project->start_date  }}</p>
                                     </div>
                                 </div>
 
@@ -61,7 +61,7 @@ Projects Overview
                                     <div class="mt-4">
                                         <h5 class="font-size-14"><i class="bx bx-calendar-check mr-1 text-primary"></i>
                                             Due Date</h5>
-                                        <p class="text-muted mb-0">{{  $project->end_date  }}</p>
+                                        <p class="text-muted mb-0">{{  $single_project->end_date  }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -122,13 +122,13 @@ Projects Overview
                             <div class="table-responsive">
                                 <table class="table table-nowrap table-centered table-hover mb-0">
                                     <tbody>
-                                        @foreach ($project->project_image as $image)
+                                        @foreach ($single_project->project_image as $image)
                                             <tr>
                                                 <td style="width: 45px;">
                                                     <div class="avatar-sm">
                                                         <span
                                                             class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                                            <img src="{{ asset('images/project_image/' . $image->image) }}" alt="{{ $project->name }}" width="100%">
+                                                            <img src="{{ asset('images/project_image/' . $image->image) }}" alt="{{ $single_project->name }}" width="100%">
                                                         </span>
                                                     </div>
                                                 </td>
@@ -143,7 +143,7 @@ Projects Overview
                                                 </td>
                                             </tr>
                                         @endforeach
-                                        @foreach ($project->files as $file)
+                                        @foreach ($single_project->files as $file)
                                             <tr>
                                                 <td style="width: 45px;">
                                                     <div class="avatar-sm">

@@ -13,7 +13,7 @@
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
         <!-- datepicker css -->
-        <link href="{{ asset('assets/css/bootstrap-datepicker.min.cs') }}s" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assets/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
 
         <!-- dropzone css -->
         <link href="{{ asset('assets/css/dropzone.min.css') }}" rel="stylesheet" type="text/css"/>
@@ -25,8 +25,8 @@
         <!-- Bootstrap Css -->
         <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
         <!-- Phone number country wise -->
-        <link href="{{ asset('build/css/demo.css" rel') }}="stylesheet" type="text/css" />
-        <link href="{{ asset('build/css/intlTelInput.min.css"') }} rel="stylesheet" type="text/css"`/>
+        <link href="{{ asset('build/css/demo.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('build/css/intlTelInput.min.css') }}" rel="stylesheet" type="text/css"/>
         <!-- Icons Css -->
         <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css"/>
         <!-- App Css-->
@@ -477,7 +477,7 @@
     @yield('footer_js')
     <script>
         $(document).ready(function () {
-            // $(".alert").fadeOut(3000);
+            $(".alert").fadeOut(5000);
         });
 
     </script>

@@ -55,6 +55,8 @@ Route::post('/project_post', [ProjectController::class, 'store'])->name('project
 Route::get('/project_edit/{id}', [ProjectController::class, 'edit'])->name('project_edit');
 Route::post('/project_update', [ProjectController::class, 'update'])->name('project_update');
 Route::get('/projects_overview/{id}', [ProjectController::class, 'Overview'])->name('projects_overview');
+Route::get('/projects_accept/{id}', [ProjectController::class, 'Accept'])->name('projects_accept');
+Route::get('/projects_complete/{id}', [ProjectController::class, 'Complete'])->name('projects_complete');
 Route::get('/project_trash/{id}', [ProjectController::class, 'trash'])->name('project_trash');
 Route::get('/project_trash_list', [ProjectController::class, 'trashList'])->name('project_trash_list');
 Route::get('/project_restore/{id}', [ProjectController::class, 'Restore'])->name('project_restore');

@@ -20,7 +20,8 @@ return new class extends Migration
             $table->text('description');
             $table->string('start_date');
             $table->string('end_date');
-            $table->string('status')->default(1)->comment('1=Pending 2=Complete 3=Delay');
+            $table->string('status')->default(1)->comment('1=Pending 2=Complete 3=Complete 4=Delay');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -26,9 +26,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $project = Project::all();
+        $projects = Project::all();
         return view('project_grid', [
-            'project' => $project
+            'projects' => $projects
         ]);
     }
 
@@ -55,7 +55,7 @@ class ProjectController extends Controller
     public function projectsList(Project $request)
     {
         $user_id = Auth::id();
-        $projects = Project::where('id', $user_id)->get();
+        $projects = Project::where('id', $user_id)->paginate(10);
         return view('projects_list', [
             'projects' => $projects
         ]);
@@ -68,6 +68,7 @@ class ProjectController extends Controller
      */
     public function Overview($id)
     {
+        $single_project = Project::findOrfail($id);
         $project = Project::
         join('project_members','projects.id','project_members.project_id')
         ->join('users','users.id','project_members.member_id')
@@ -75,6 +76,7 @@ class ProjectController extends Controller
         ->where('projects.id',$id)->get();
         return view('projects_overview', [
             'projects' => $project,
+            'single_project' => $single_project
         ]);
     }
 
@@ -298,6 +300,24 @@ class ProjectController extends Controller
         $update->save();
 
         return redirect('project_list')->with('project_create', 'Project Create Successfully');
+    }
+
+    public function Accept(Request $request)
+    {
+        $update = Project::findOrfail($request->id);
+        $update->status = 2;
+        $update->save();
+
+        return redirect('project_list')->with('project_create', 'Project Accept Successfully');
+    }
+
+    public function Complete(Request $request)
+    {
+        $update = Project::findOrfail($request->id);
+        $update->status = 3;
+        $update->save();
+
+        return redirect('project_list')->with('project_create', 'Project Complete Successfully');
     }
 
     /**
